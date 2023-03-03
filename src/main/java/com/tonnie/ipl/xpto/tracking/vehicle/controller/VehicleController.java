@@ -97,7 +97,6 @@ public class VehicleController implements VehiclesApi {
 		persistedEntity.setTelemetryProfileId(newEntity.getTelemetryProfileId());
 		persistedEntity.setDriverId(newEntity.getDriverId());
 		persistedEntity.setPlateNumber(newEntity.getPlateNumber());
-		persistedEntity.setVin(newEntity.getVin());
 		persistedEntity.setColor(newEntity.getColor());
 
 		service.update(persistedEntity);
