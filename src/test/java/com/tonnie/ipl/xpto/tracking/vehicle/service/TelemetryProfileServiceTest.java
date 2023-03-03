@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tonnie.ipl.xpto.tracking.vehicle.XptoTrackingVehicleMsApplication;
 import com.tonnie.ipl.xpto.tracking.vehicle.model.Sensor;
 import com.tonnie.ipl.xpto.tracking.vehicle.model.TelemetryProfile;
-import com.tonnie.ipl.xpto.tracking.vehicle.repository.SensorRepository;
+import com.tonnie.ipl.xpto.tracking.vehicle.repository.VehicleRepository;
 import com.tonnie.ipl.xpto.tracking.vehicle.service.impl.TelemetryProfileService;
 
 @ExtendWith(SpringExtension.class)
@@ -32,11 +32,11 @@ class TelemetryProfileServiceTest {
 	private TelemetryProfileService service;
 	
 	@Autowired
-	private SensorRepository sensorRepository;
+	private VehicleRepository vehicleRepository;
 
 	private TelemetryProfile createTestEntity() {
 
-		Set<Sensor> sensors = new HashSet<>(sensorRepository.findAll());
+		Set<Sensor> sensors = new HashSet<>(vehicleRepository.findAll());
 
 		return TelemetryProfile.builder().name("TestCreateTlmProfile_" + Math.random()).sensors(sensors).build();
 	}

@@ -17,10 +17,10 @@ import com.tonnie.ipl.xpto.tracking.vehicle.model.Sensor;
 
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class SensorRepositoryTest {
+class VehicleRepositoryTest {
 
 	@Autowired
-    private SensorRepository repository;
+    private VehicleRepository repository;
 	
 	private Sensor createTestEntity() {
 		return Sensor.builder()

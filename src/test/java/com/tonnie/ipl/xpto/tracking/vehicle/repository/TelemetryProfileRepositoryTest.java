@@ -22,14 +22,14 @@ import com.tonnie.ipl.xpto.tracking.vehicle.model.TelemetryProfile;
 class TelemetryProfileRepositoryTest {
 
 	@Autowired
-	private SensorRepository sensorRepository;
+	private VehicleRepository vehicleRepository;
 
 	@Autowired
 	private TelemetryProfileRepository repository;
 
 	private TelemetryProfile createTestEntity() {
 
-		Set<Sensor> sensors = new HashSet<>(sensorRepository.findAll());
+		Set<Sensor> sensors = new HashSet<>(vehicleRepository.findAll());
 
 		return TelemetryProfile.builder().name("TestCreateTlmProfile_" + Math.random()).sensors(sensors).build();
 	}

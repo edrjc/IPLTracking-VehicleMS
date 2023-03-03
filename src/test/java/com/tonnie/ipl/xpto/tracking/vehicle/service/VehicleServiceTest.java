@@ -17,15 +17,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.tonnie.ipl.xpto.tracking.vehicle.XptoTrackingVehicleMsApplication;
 import com.tonnie.ipl.xpto.tracking.vehicle.enums.SensorType;
 import com.tonnie.ipl.xpto.tracking.vehicle.model.Sensor;
-import com.tonnie.ipl.xpto.tracking.vehicle.service.impl.SensorService;
+import com.tonnie.ipl.xpto.tracking.vehicle.service.impl.VehicleService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = XptoTrackingVehicleMsApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class SensorServiceTest {
+class VehicleServiceTest {
 
 	@Autowired
-	private SensorService service;
+	private VehicleService service;
 
 	private Sensor createTestEntity() {
 		return Sensor.builder()
