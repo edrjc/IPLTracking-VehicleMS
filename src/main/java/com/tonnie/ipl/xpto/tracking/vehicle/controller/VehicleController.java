@@ -6,6 +6,7 @@ import com.tonnie.ipl.xpto.tracking.vehicle.model.Vehicle;
 import com.tonnie.ipl.xpto.tracking.vehicle.openapi.api.VehiclesApi;
 import com.tonnie.ipl.xpto.tracking.vehicle.openapi.model.*;
 import com.tonnie.ipl.xpto.tracking.vehicle.service.IVehicleService;
+import com.tonnie.ipl.xpto.tracking.vehicle.service.impl.VehicleService;
 import com.tonnie.ipl.xpto.tracking.vehicle.util.Messages;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
@@ -34,6 +35,11 @@ public class VehicleController implements VehiclesApi {
 		headers.set(X_TRACE_ID, MDC.get(TRACE_ID));
 
 		Vehicle newEntity = mapper.mapDtoToEntity(createVehicleRequestDto);
+
+		//confirm existence of Driver, Customer and Telemetry Profile
+		if (!VehicleService.is_valid(newEntity.getTelemetryProfileId())) {
+			throw new EntityNotFoundException(String.format(Messages.TELEMETRY_PROFILE_NOT_FOUND_FOR_ID, newEntity.getTelemetryProfileId()));
+		}
 
 		newEntity = service.save(newEntity);
 
