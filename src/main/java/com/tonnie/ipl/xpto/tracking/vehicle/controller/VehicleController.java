@@ -37,8 +37,8 @@ public class VehicleController implements VehiclesApi {
 		Vehicle newEntity = mapper.mapDtoToEntity(createVehicleRequestDto);
 
 		//confirm existence of Driver, Customer and Telemetry Profile
-		if (!VehicleService.is_valid(newEntity.getTelemetryProfileId())) {
-			throw new EntityNotFoundException(String.format(Messages.TELEMETRY_PROFILE_NOT_FOUND_FOR_ID, newEntity.getTelemetryProfileId()));
+		if (!VehicleService.is_valid(newEntity.getTelemetryProfileId(), newEntity.getCustomerId(), newEntity.getDriverId())) {
+			throw new EntityNotFoundException(String.format(Messages.ENTITIES_NOT_FOUND_FOR_IDS, newEntity.getTelemetryProfileId(), newEntity.getCustomerId(), newEntity.getDriverId()));
 		}
 
 		newEntity = service.save(newEntity);

@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.Driver;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,9 +59,9 @@ public class VehicleService extends BaseEntityService<UUID, Vehicle, VehicleRepo
 		return Response.statusCode() == 200;
 	}
 
-	public static Boolean is_valid(UUID TelemetryProfileId) {
+	public static Boolean is_valid(UUID TelemetryProfileId, UUID CustomerId, UUID DriverId) {
 		//confirm existence of Driver, Customer and Telemetry Profile
-		return has_entity(TelemetryProfileUri, TelemetryProfileId);
+		return has_entity(TelemetryProfileUri, TelemetryProfileId) && has_entity(CustomerUri, CustomerId) && has_entity(DriverUri, DriverId);
 	}
 
 }
