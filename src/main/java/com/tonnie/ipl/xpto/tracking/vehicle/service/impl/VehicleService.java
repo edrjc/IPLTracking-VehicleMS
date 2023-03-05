@@ -20,9 +20,14 @@ import java.util.UUID;
 public class VehicleService extends BaseEntityService<UUID, Vehicle, VehicleRepository> implements IVehicleService {
 
 	private static String TelemetryProfileUri;
-	public VehicleService(VehicleRepository repository, @Value("${telemetry.profile.uri}") String TelemetryProfileUri) {
+	private static String CustomerUri;
+	private static String DriverUri;
+
+	public VehicleService(VehicleRepository repository, @Value("${telemetry.profile.uri}") String TelemetryProfileUri, @Value("${customer.uri}") String CustomerUri, @Value("${driver.uri}") String DriverUri) {
 		super(repository);
 		this.TelemetryProfileUri = TelemetryProfileUri;
+		this.CustomerUri = CustomerUri;
+		this.DriverUri = DriverUri;
 	}
 
 	public static Set<Vehicle> convertSetIdsToListVehicles(Collection<String> listIds) {
@@ -38,10 +43,9 @@ public class VehicleService extends BaseEntityService<UUID, Vehicle, VehicleRepo
 		return vehicles;
 	}
 
-	public static Boolean is_valid(UUID TelemetryProfileId) {
-		//confirm existence of Driver, Customer and Telemetry Profile
+	private static Boolean has_entity(String msUri, UUID entityId) {
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(TelemetryProfileUri + TelemetryProfileId.toString()))
+				.uri(URI.create(msUri + entityId.toString()))
 				.method("GET", HttpRequest.BodyPublishers.noBody())
 				.build();
 		HttpResponse<String> Response = null;
@@ -52,6 +56,11 @@ public class VehicleService extends BaseEntityService<UUID, Vehicle, VehicleRepo
 		}
 
 		return Response.statusCode() == 200;
+	}
+
+	public static Boolean is_valid(UUID TelemetryProfileId) {
+		//confirm existence of Driver, Customer and Telemetry Profile
+		return has_entity(TelemetryProfileUri, TelemetryProfileId);
 	}
 
 }
